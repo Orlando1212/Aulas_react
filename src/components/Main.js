@@ -33,6 +33,16 @@ export default class Main extends Component{
 
         console.log('Oi');
     }
+
+    handleDelete = (e,index) => {
+        const{tarefas} = this.state;
+        const novasTarefas = [...tarefas];
+        novasTarefas.splice(index,1);
+
+        this.setState({
+            tarefas: [...novasTarefas],
+        });
+    }
 _
         render(){
     const {novaTarefa,tarefas} = this.state;
@@ -49,12 +59,12 @@ _
                 </form>
 
             <ul className="tarefas">
-                {tarefas.map((tarefa)=>(
+                {tarefas.map((tarefa,index)=>(
                     <li key= {tarefa}>
                         {tarefa}
                         <span>
-                            <FaEdit className="edit" />
-                            <FaWindowClose onClick={this.handleDelete} className ="delete" />
+                            <FaEdit onClick={(e) => this.handleEdit(e,index)} className="edit" />
+                            <FaWindowClose onClick={(e) => this.handleDelete(e,index)} className ="delete" />
                         </span>
                     </li>
                 ))}
